@@ -1,0 +1,44 @@
+{
+  "name": "SiteConfigViewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-mac": "electron-builder --mac --x64",
+    "build-win": "electron-builder --win --x64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^13.1.7",
+    "electron-builder": "^22.11.7"
+  },
+  "build": {
+    "appId": "com.scigineer",
+    "files": [
+      "package.json",
+      "package-lock.json",
+      "render/**/*",
+      "main.js",
+      "preload.js"
+    ],
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/images/turtle512.png"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/images/turtle512.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "diff": "^5.0.0"
+  }
+}

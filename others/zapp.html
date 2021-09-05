@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" /> -->
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
+    
+        <script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/blockly_compressed.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/blocks_compressed.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/javascript_compressed.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/msg/js/ja.min.js"></script>
+        <script src="../js/customblocks.js"></script>
+        <script src="../js/siteconfigUtils.js"></script>
+        <script src="../js/siteconfigTest.js"></script>
+    
+        <!-- import fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+        <!-- import styles -->
+        <!-- <link rel='stylesheet' href='../css/styles.css'> -->
+        <title>siteconfig UI</title>
+    </head>
+<body>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            hello
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            I Love you
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            tell me your NAME
+        </div>
+    </div>
+
+
+    <table border=1>
+        <tr><th>id</th><th>length</th><th>sources</th><th>filters</th></tr>
+        <tr><td></td><td>0</td><td><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:</li></td><td></td></tr>
+        <tr><td>vision</td><td>30</td><td><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:vision</li><li>カテゴリ補完(AttributeRecommend) target:ctg</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>visionfortest</td><td>30</td><td><li>新着商品、セール商品一覧など、属性でフィルタしたアイテムを表示(FilteredCatalog) target:</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>detail</td><td>25</td><td><li>直近閲覧商品差し込み(SpecifiedRecentView) target:</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:item_view</li><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:vision</li><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>カテゴリ補完(AttributeRecommend) target:ctg_compview</li><li>カテゴリ補完(AttributeRecommend) target:ctg_reco</li><li>デフォルト(DefaultRecommend) target:item_view</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>cart</td><td>25</td><td><li>直近閲覧商品差し込み(SpecifiedRecentView) target:</li><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>アイテムレコメンドにパーソナライズを混ぜる・置き換える(PersonalizeRecommend) target:viewer</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:item_buy</li><li>カテゴリ補完(AttributeRecommend) target:ctg_compbuy</li><li>デフォルト(DefaultRecommend) target:item_buy</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>top</td><td>8</td><td><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>top2</td><td>30</td><td><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view_s</li><li>パーソナライズを直近閲覧レコメンドで行ってる際に、件数不足を補う(TwoPhaseRecentViewRecommend) target:item_view_s</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:viewer</li><li>アイテムレコメンドの補完(TwoPhaseRecommend) target:viewer</li><li>レコメンドの補完(TwoPhaseAttributeRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>adpromotion</td><td>50</td><td><li>最近見た商品の同一カテゴリのおすすめ(RecentViewAttributeRecommend) target:ctg_adpr</li><li>UID指定で、アイテムレコメンドにパーソナライズを混ぜる・置き換える(UidRecommend) target:viewer</li><li>Mark指定で、アイテムレコメンドにパーソナライズを混ぜる・置き換える(MarkRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:ctg_adpr_d</li><li>デフォルト(DefaultRecommend) target:ctg_adpr</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>adpromotion_b</td><td>50</td><td><li>最近見た商品の同一カテゴリのおすすめ(RecentViewAttributeRecommend) target:ctg_adpr</li><li>UID指定で、アイテムレコメンドにパーソナライズを混ぜる・置き換える(UidRecommend) target:viewer</li><li>Mark指定で、アイテムレコメンドにパーソナライズを混ぜる・置き換える(MarkRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:ctg_adpr_d4</li><li>デフォルト(DefaultRecommend) target:ctg_adpr_d</li><li>デフォルト(DefaultRecommend) target:ctg_adpr</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>recomail</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>recomailb</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>recomailc</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>recomaild</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>recomaile</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>pointmaila</td><td>30</td><td><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d4</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>pointmailb</td><td>30</td><td><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d4</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>recomailb2</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>recomailf</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>recomailg</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>recomailh</td><td>10</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>mailmagazine</td><td>20</td><td><li>デフォルト(DefaultRecommend) target:viewer</li></td><td><li>商品属性による除外(AttributeFilter) </li></td></tr>
+        <tr><td>ordermail</td><td>30</td><td><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:item_buy</li><li>アイテムレコメンドにパーソナライズを混ぜる・置き換える(PersonalizeRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:item_buy</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>point_deposit_mail</td><td>30</td><td><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d4</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>point_expire_mail</td><td>30</td><td><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d4</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        <tr><td>point_addition_mail</td><td>30</td><td><li>直近閲覧した商品に基づくおすすめ(RecentViewRecommend) target:item_view</li><li>アイテムレコメンド、パーソナライズレコメンド、カテゴリレコメンド(TargetRecommend) target:viewer</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d4</li><li>デフォルト(DefaultRecommend) target:viewer_mail_d</li></td><td><li>商品属性による除外(AttributeFilter) </li><li>購買済み商品除く(CvItemFilter) </li></td></tr>
+        </table>
+
+
+    </body>
+</html>

@@ -1,0 +1,95 @@
+実行可能なファイルを作成する
+
+electron-packagerの場合
+
+インストール
+npm install --save-dev electron-packager
+
+生成する
+npx electron-packager . sample --platform=darwin --arch=x64
+npx electron-packager . sample --platform=win32 --arch=x64
+
+win32	Windows用のEXEファイルを生成
+linux	Linux用のファイルを生成
+darwin	macOS用のappファイルを生成
+mas	macOS用のAppStoreで販売するためのファイルを生成
+
+{
+  "name": "1stapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build-mac": "electron-packager . sample --platform=darwin --arch=x64  --overwrite",
+    "build-win": "electron-packager . sample --platform=win32 --arch=x64  --overwrite",
+    "build-linux": "electron-packager . sample --platform=linux --arch=x64  --overwrite"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^10.1.2",
+    "electron-packager": "^15.1.0"
+  }
+}
+
+
+electron-builderの場合
+
+npm remove electron-packager
+
+npm install --save-dev electron-builder
+
+package.jsonで設定
+
+{
+  "name": "1stapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build-mac": "electron-builder --mac --x64",
+    "build-win": "electron-builder --win --x64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^13.1.7",
+    "electron-builder": "^22.11.7"
+  },
+  "build":{
+    "appId": "net.makitokatsube.app.1st",
+    "files": [
+      "package.json",
+      "package-lock.json",
+      "index.js",
+      "index.html"
+    ],
+    "mac":{
+      "target": "dmg",
+      "icon": "assets/images/turtle512.png"
+    },
+    "win":{
+      "target": "nsis",
+      "icon": "assets/images/turtle512.png"
+    },
+    "nsis":{
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
+
+生成
+
+npm run build-mac
+npm run build-win
+
+アイコンは
+Windows用は256x256pixel
+macOS用は512x512pixelが必要
+
+

@@ -1,0 +1,44 @@
+
+Working with files (I/O) in an Electron application
+
+https://medium.com/jspoint/working-with-files-i-o-in-an-electron-application-b4d2de403f54
+
+
+
+                <div>ファイルをここにドラッグ</div>
+                <div id="image-view"></div>
+                <script>
+                    document.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                
+                        for (const f of e.dataTransfer.files) {
+                            console.log('File(s) you dragged here: ', f.path)
+                            const img = document.createElement('img');
+                            img.src = f.path;
+                            document.getElementById('image-view').appendChild(img);
+                        }
+                    });
+                    document.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+                </script>
+
+
+                <!-- upload area -->
+                <div id='uploader' class='app__uploader'>
+                    <div class='app__uploader__icon-area'>
+                        <img src='../assets/upload.svg' class='app__uploader__icon-area__icon' />
+                        <p class='app__uploader__icon-area__text'>Drag file(s) to add</p>
+                    </div>
+                    <div class='app__uploader__button-area'>
+                        <button class='app__uploader__button-area__button' onclick='openDialog()'>Click To Add Files</button>
+                    </div>
+                </div>
+
+
+    <!-- require render JavaScript -->
+    <script>
+        require( '../js/renderer.js' );
+    </script>
