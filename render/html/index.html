@@ -28,9 +28,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
 
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+
+    <!-- Javascripts -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"></script>
-
-
 
     <!-- import fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -40,60 +42,121 @@
     <!-- <link rel='stylesheet' href='../css/styles.css'> -->
     <!-- <script src="../js/editor.js"></script> -->
 
-    <!-- <link rel="stylesheet" href="../css/index.css"> -->
+    <script src="../js/editor01.js"></script>
+    <script src="../js/editor02.js"></script>
 
+    <link rel="stylesheet" href="../css/index.css">
     <title>diff check</title>
 </head>
 
 <body>
-    <nav class="navbar bg-secondary" id="header">
+    <!-- <nav class="navbar bg-secondary" id="header">
         <h1 class="h5 text-light">diff check</h1>
-    </nav>
+    </nav> -->
+    <div class="row m-0" id="content" style="height: 30px">
+        <div class="receiving-box-outer">
+            <div class="receiving-box-inner">fileをドラッグ＆ドロップ</div>
+        </div>
+    </div>
     <div class="row m-0" id="content" style="height: 40%">
         <div class="col-12 col-sm-6 col-md-6 col-lg-6 m-0" id="paramdiv">
             <button type="button" id="btn_path1">file1</button>
-            <textarea name="src" id="file1" cols="120" rows="10" style="overflow:auto;"></textarea>
+            <input type="text"  id="txt_path1"  style="width: 80%">
+            <!-- <textarea name="src" id="file1" cols="120" rows="10" style="overflow:auto;"></textarea> -->
+            <div class="row m-0" id="content01" style="width: 100%;height: 100%">
+                <div  id="editor_area01"></div>
+            </div>
         </div>
         <div class="col-12 col-sm-6 col-md-6 col-lg-6 m-0" id="paramdiv">
             <button type="button" id="btn_path2">file2</button>
-            <textarea name="src" id="file2" cols="120" rows="10" style="overflow:auto;"></textarea>
+            <input type="text"  id="txt_path2"  style="width: 80%">
+            <!-- <textarea name="src" id="file2" cols="120" rows="10" style="overflow:auto;"></textarea> -->
+            <div class="row m-0" id="content02" style="width: 100%;height: 100%">
+                <div id="editor_area02"></div>
+            </div>
+
         </div>
     </div>
     <div class="row m-0" id="content" style="height: 10%">
         <button type="button" class="btn btn-primary" style="height:30px;" onclick="kickout()">check</button>
     </div>
     <div id="diffelement"></div>
-
     <script>
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // for (const f of e.dataTransfer.files) {
+            //     console.log('dragged path: ', f.path)
+            //     // const img = document.createElement('img');
+            //     // img.src = f.path;
+            //     // document.getElementById('image-view').appendChild(img);
+            // }
+            if (e.dataTransfer.files.length >= 1){
+                let path = e.dataTransfer.files[0].path;
+                // readFile("file2", path)
+                readFile1("file1", path) ;
+            }
+            if (e.dataTransfer.files.length >= 2){
+                let path = e.dataTransfer.files[1].path;
+                // readFile("file2", path)
+                readFile2("file2",path) ;
+            }
+        });
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
         document.getElementById('btn_path1').addEventListener('click', () => {
             const { dialog } = require('electron').remote;
             let files = dialog.showOpenDialogSync({ filters: [{ name: 'Text', extensions: ['txt', 'csv', 'xml'] }] })
             if (files.length > 0) readFile("file1", files[0])
         });
+
         document.getElementById('btn_path2').addEventListener('click', () => {
             const { dialog } = require('electron').remote;
             let files = dialog.showOpenDialogSync({ filters: [{ name: 'Text', extensions: ['txt', 'csv', 'xml'] }] })
             if (files.length > 0) readFile("file2", files[0])
         });
+
+        function readFile1(dest, path) {
+            let data = fs.readFileSync(path, 'utf-8');
+            document.getElementById("txt_path1").value = path;
+            // document.getElementById(dest).value = data;
+            editor01.session.getDocument().setValue(data);
+        }
+        function readFile2(dest, path) {
+            let data = fs.readFileSync(path, 'utf-8');
+            document.getElementById("txt_path2").value = path;
+            // document.getElementById(dest).value = data;
+            editor02.session.getDocument().setValue(data);
+        }
+
         function readFile(dest, path) {
             fs.readFile(path, 'utf8', (error, data) => {
                 if (error != null) {
                     alert("file open error.");
                     return;
                 }
-                console.log(data);
+                // console.log(data);
                 document.getElementById(dest).value = data.toString();
             });
         }
 
         function kickout() {
-            let text1 = document.getElementById("file1").value;
-            let text2 = document.getElementById("file2").value;
+            let text1 = editor01.session.getDocument().getValue();
+            let text2 = editor02.session.getDocument().getValue();
+            // let text1 = document.getElementById("file1").value;
+            // let text2 = document.getElementById("file2").value;
             let diffText = Diff.createPatch('diff', text1, text2);
+            // console.log("## diffText:"+diffText)
             const diffelement = document.getElementById('diffelement');
             const configuration = { drawFileList: true, matching: 'lines' };
             const diff2htmlUi = new Diff2HtmlUI(diffelement, diffText, configuration);
             diff2htmlUi.draw();
+            // console.log("## diff ↓ ###################################################")
+            // console.log(document.getElementById('diffelement').innerHTML)
+            // console.log("## diff ↑ ###################################################")
         }
         function text2dict(prmTxt) {
             let dict = {
@@ -115,5 +178,6 @@
     </script>
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
 
 </html>

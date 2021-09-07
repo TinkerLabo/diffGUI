@@ -1,5 +1,5 @@
 {
-  "name": "SiteConfigViewer",
+  "name": "diffGUI",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -17,7 +17,7 @@
     "electron-builder": "^22.11.7"
   },
   "build": {
-    "appId": "com.scigineer",
+    "appId": "com.yuasa",
     "files": [
       "package.json",
       "package-lock.json",

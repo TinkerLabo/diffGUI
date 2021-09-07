@@ -7,7 +7,7 @@ html,
 body {
   width: 100%;
   height: 100%;
-  background-color: #303030;
+  /* background-color: #303030; */
 }
 
 #header {
@@ -49,4 +49,20 @@ body {
   background-color: #505050;
   color: #e0e0e0;
   font-size: 90%;
+}
+
+.receiving-box-outer {
+  display: table;
+  width: 100%;
+  padding: 15px 0;
+}
+
+.receiving-box-inner {
+  height: 30px;
+  color: #777;
+  border: 5px dashed #aaa;
+  border-radius: 10px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
