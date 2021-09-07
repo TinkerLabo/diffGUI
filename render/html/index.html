@@ -79,16 +79,20 @@
             <div class="row m-0" id="content02" style="width: 100%;height: 100%">
                 <div id="editor_area02"></div>
             </div>
-
         </div>
     </div>
     <br>
-    <div class="row m-0" id="content" style="height: 30px">
-        <div class="btn-group" role="group" style="height:30px;">
+    <div class="row m-0" id="content" style="height: 50px">
+        <div class="btn-group" role="group" style="height:50px;">
             <button type="button" class="btn btn-primary"     onclick="kickout()" >check</button>
             <button type="button" class="btn btn-secondary" 　onclick="resetIt()" >reset</button>
             <button type="button" class="btn btn-secondary"                       >reload</button>
             <button type="button" class="btn btn-secondary"                       >save</button>
+            <select class="form-select" aria-label="encoding"  style="width: 200px">
+                <option selected>utf8</option>
+                <option value="1">utf8(bom)</option>
+                <option value="2">shift-jis</option>
+              </select>
         </div>
     </div>
     <div id="diffelement"></div>
