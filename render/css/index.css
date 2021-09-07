@@ -66,3 +66,7 @@ body {
   vertical-align: middle;
   text-align: center;
 }
+
+.btn-space {
+  margin-right: 5px;
+}
