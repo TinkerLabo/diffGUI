@@ -1,12 +1,15 @@
 const { remote } = require('electron');
 const { dialog, BrowserWindow } = remote;
+const Encoding = require('encoding-japanese');
 
 window.remote = remote;
 window.BrowserWindow = BrowserWindow;
 window.dialog = dialog;
+window.Encoding = Encoding;
 
 const fs = require('fs');
 window.fs = fs;
+
 const path = require('path');
 window.path = path;
 

@@ -84,15 +84,15 @@
     <br>
     <div class="row m-0" id="content" style="height: 50px">
         <div class="btn-group" role="group" style="height:50px;">
-            <button type="button" class="btn btn-primary"     onclick="kickout()" >check</button>
-            <button type="button" class="btn btn-secondary" 　onclick="resetIt()" >reset</button>
+            <button type="button" class="btn btn-secondary" onclick="resetIt()" >reset</button>
             <button type="button" class="btn btn-secondary"                       >reload</button>
             <button type="button" class="btn btn-secondary"                       >save</button>
             <select class="form-select" aria-label="encoding"  style="width: 200px">
                 <option selected>utf8</option>
                 <option value="1">utf8(bom)</option>
                 <option value="2">shift-jis</option>
-              </select>
+            </select>
+            <button type="button" class="btn btn-primary"     onclick="kickout()" >check</button>
         </div>
     </div>
     <div id="diffelement"></div>
@@ -144,14 +144,27 @@
             if (files.length > 0) readFile("file2", files[0])
         });
 
+        function readfile(path,encode){
+            // let buffer = fs.readFileSync(path, 'utf-8');
+            let buffer = fs.readFileSync(path);
+            const data = Encoding.convert(buffer, {
+                // from: 'SJIS',
+                from: encode,
+                to: 'UNICODE',
+                type: 'string',
+            });
+            return data;
+        } 
+
         function readFile1(dest, path) {
-            let data = fs.readFileSync(path, 'utf-8');
+            let data = readfile(path,'utf-8');
             document.getElementById("txt_path1").value = path;
             // document.getElementById(dest).value = data;
             editor01.session.getDocument().setValue(data);
         }
         function readFile2(dest, path) {
-            let data = fs.readFileSync(path, 'utf-8');
+            let data = readfile(path,'utf-8');
+            // let data = fs.readFileSync(path, 'utf-8');
             document.getElementById("txt_path2").value = path;
             // document.getElementById(dest).value = data;
             editor02.session.getDocument().setValue(data);
@@ -169,6 +182,7 @@
         }
 
         function resetIt(){
+            // console.log("### resetIt ###")
             document.getElementById("txt_path1").value = "";
             document.getElementById("txt_path2").value = "";
             editor01.session.getDocument().setValue("");
